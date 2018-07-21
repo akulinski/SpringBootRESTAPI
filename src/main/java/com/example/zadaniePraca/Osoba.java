@@ -15,11 +15,43 @@ public class Osoba {
     @GeneratedValue
     private Long id;
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setPesel(String pesel) {
+        this.pesel = pesel;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     private String name;
 
     private String secondName;
 
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
     private String dateOfBirth;
+
+    public String getPesel() {
+        return pesel;
+    }
+
+    public String getGender() {
+        return gender;
+    }
 
     private String pesel;
 
@@ -33,6 +65,9 @@ public class Osoba {
     public Osoba(final String name, final String secondName,final String dateOfBirth, final  String pesel,final String gender) {
         this.name = name;
         this.secondName = secondName;
+        this.dateOfBirth=dateOfBirth;
+        this.pesel=pesel;
+        this.gender=gender;
     }
 
     public Long getId() {
