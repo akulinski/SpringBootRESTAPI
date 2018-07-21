@@ -5,7 +5,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/osoba")
@@ -28,12 +33,33 @@ public class OsobaController {
     }
 
     @PostMapping
-    ResponseEntity<Object> add(@ModelAttribute Osoba input){
+    String add(@ModelAttribute Osoba input){
 
         Osoba osoba=new Osoba(input.getName(),input.getSecondName(),input.getDateOfBirth(),input.getPesel(),input.getGender());
-        osobaRepository.save(osoba);
-        System.out.println(osoba.getName()+osoba.getSecondName());
-        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date convertedCurrentDate = null;
+        try {
+            convertedCurrentDate = sdf.parse("1918-01-01");
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "Wrong Date";
+        }
+        Date now=new Date();
+        if(osoba.getDate().after(now)||osoba.getDate().before(convertedCurrentDate)){
+            return "Wrong Date";
+        }
+        else if(!checkPesel(osoba.getPesel())){
+            return "Wrong Pesel";
+        }
+
+        else if(osoba.getName().equals("")||osoba.getSecondName().equals("")){
+            return "Empty Name or Second Name";
+        }
+        else {
+            osobaRepository.save(osoba);
+            System.out.println(osoba.getName() + osoba.getSecondName());
+            return "User added";
+        }
     }
 
     @DeleteMapping("/{name}")
@@ -81,5 +107,13 @@ public class OsobaController {
 
         return  ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
+
+    boolean checkPesel(String pesel){
+        Pattern VALID_EMAIL_ADDRESS_REGEX =
+                Pattern.compile("^[0-9]{11}", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(pesel);
+        return matcher.find();
+    }
+
 
 }

@@ -12,6 +12,8 @@ import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/kontakty/{name}")
@@ -45,8 +47,14 @@ public class KontaktController {
         return this.osobaRepository
                 .findByName(name)
                 .map(account -> {
-                    Kontakt result = this.kontaktRepository.save(new Kontakt(account,
-                            input.getPhoneNumber(), input.getEmail()));
+                    Kontakt kontakt= new Kontakt(account, input.getPhoneNumber(), input.getEmail());
+                    if(!checkEmail(kontakt.getEmail())){
+                        System.out.println("Wrong email");
+                        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+                    }else{
+                        Kontakt result = this.kontaktRepository.save(kontakt);
+                    }
+
                     return ResponseEntity.status(HttpStatus.ACCEPTED).build();
                 })
                 .orElse(ResponseEntity.noContent().build());
@@ -93,5 +101,12 @@ public class KontaktController {
 
 
         return  ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    }
+    boolean checkEmail(String email){
+        Pattern VALID_EMAIL_ADDRESS_REGEX =
+                Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
+        return matcher.find();
     }
 }

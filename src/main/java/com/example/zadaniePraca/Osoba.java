@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -84,6 +87,17 @@ public class Osoba {
 
     public Set<Kontakt> getKontakty() {
         return kontakty;
+    }
+
+    public Date getDate(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date convertedCurrentDate = null;
+        try {
+            convertedCurrentDate = sdf.parse(dateOfBirth);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return convertedCurrentDate;
     }
 
 }

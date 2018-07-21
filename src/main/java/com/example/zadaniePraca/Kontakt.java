@@ -48,4 +48,6 @@ public class Kontakt {
     public String getEmail() {
         return email;
     }
+
+
 }
