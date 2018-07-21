@@ -18,20 +18,19 @@ public class Kontakt {
     @ManyToOne
     private Osoba osoba;
 
-    private String phoneNumer;
+    private String phoneber;
 
     private String email;
+    private Kontakt(){}
 
-    private Kontakt() { } // JPA only
-
-    private Kontakt(Osoba osoba, String phoneNumer, String email) {
+    public Kontakt(Osoba osoba, String phoneNumber, String email) {
         this.osoba = osoba;
-        this.phoneNumer = phoneNumer;
+        this.phoneber = phoneNumber;
         this.email = email;
     }
 
     public static Kontakt from(Osoba account, Kontakt bookmark) {
-        return new Kontakt(account, bookmark.getPhoneNumer(), bookmark.getEmail());
+        return new Kontakt(account, bookmark.getphoneNumber(), bookmark.getEmail());
     }
 
     public Long getId() {
@@ -42,8 +41,8 @@ public class Kontakt {
         return osoba;
     }
 
-    public String getPhoneNumer() {
-        return phoneNumer;
+    public String getphoneNumber() {
+        return phoneber;
     }
 
     public String getEmail() {

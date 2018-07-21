@@ -25,7 +25,7 @@ public class Osoba {
 
     private String gender;
 
-    @OneToMany(mappedBy = "Osoba")
+    @OneToMany(mappedBy = "osoba")
     private Set<Kontakt> kontakty = new HashSet<>();
 
     private Osoba() { }
@@ -33,9 +33,6 @@ public class Osoba {
     public Osoba(final String name, final String secondName,final String dateOfBirth, final  String pesel,final String gender) {
         this.name = name;
         this.secondName = secondName;
-        this.dateOfBirth = dateOfBirth;
-        this.pesel = pesel;
-        this.gender = gender;
     }
 
     public Long getId() {
