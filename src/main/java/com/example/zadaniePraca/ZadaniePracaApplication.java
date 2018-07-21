@@ -22,8 +22,8 @@ public class ZadaniePracaApplication {
                     Arrays.asList("jhoeller","dsyer","pwebb","ogierke","rwinch","mfisher","mpollack","jlong")
                             .forEach(username -> {
                                 Osoba account = osobaRepository.save(new Osoba(username, "password","3123321","1231231","a"));
-                                kontaktRepository.save(new Kontakt(account, "1232131" + username, "email"));
-                                kontaktRepository.save(new Kontakt(account, "123123123432" + username, "email2"));
+                                kontaktRepository.save(new Kontakt(account, "1232131" + username, "email@gmail"));
+                                kontaktRepository.save(new Kontakt(account, "123123123432" + username, "email2@interia"));
                             });
     }
 }
