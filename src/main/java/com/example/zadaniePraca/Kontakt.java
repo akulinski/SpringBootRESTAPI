@@ -18,19 +18,19 @@ public class Kontakt {
     @ManyToOne
     private Osoba osoba;
 
-    private String phoneber;
+    private String phoneNumber;
 
     private String email;
     private Kontakt(){}
 
     public Kontakt(Osoba osoba, String phoneNumber, String email) {
         this.osoba = osoba;
-        this.phoneber = phoneNumber;
+        this.phoneNumber = phoneNumber;
         this.email = email;
     }
 
     public static Kontakt from(Osoba account, Kontakt bookmark) {
-        return new Kontakt(account, bookmark.getphoneNumber(), bookmark.getEmail());
+        return new Kontakt(account, bookmark.getPhoneNumber(), bookmark.getEmail());
     }
 
     public Long getId() {
@@ -41,8 +41,8 @@ public class Kontakt {
         return osoba;
     }
 
-    public String getphoneNumber() {
-        return phoneber;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     public String getEmail() {

@@ -38,8 +38,8 @@ public class OsobaController {
 
     @DeleteMapping("/{name}")
     ResponseEntity<Object> delate(@PathVariable String name){
-       osobaRepository.delete(osobaRepository.findByName(name).get());
-       return  ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        osobaRepository.delete(osobaRepository.findByName(name).get());
+        return  ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
     @PostMapping("/{name}/{variable}/{value}")
@@ -49,13 +49,9 @@ public class OsobaController {
 
         switch (variable){
             case "name":
-
                 osobaRepository.delete(osoba);
-
                 osobaTmp.setName(value);
-
                 osobaRepository.save(osobaTmp);
-
                 break;
             case "secondName":
                 osobaRepository.delete(osoba);
