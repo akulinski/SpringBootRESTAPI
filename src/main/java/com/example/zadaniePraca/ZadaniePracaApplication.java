@@ -19,11 +19,11 @@ public class ZadaniePracaApplication {
     CommandLineRunner init(OsobaRepository osobaRepository,
                            KontaktRepository kontaktRepository) {
             return args ->
-                    Arrays.asList("jhoeller","dsyer","pwebb","ogierke","rwinch","mfisher","mpollack","jlong")
+                    Arrays.asList("Konrad","Tomasz","Alek")
                             .forEach(username -> {
-                                Osoba account = osobaRepository.save(new Osoba(username, "password","3123321","1231231","a"));
-                                kontaktRepository.save(new Kontakt(account, "1232131" + username, "email@gmail"));
-                                kontaktRepository.save(new Kontakt(account, "123123123432" + username, "email2@interia"));
+                                Osoba account = osobaRepository.save(new Osoba(username, "test","1995-06-17","01234567891","m"));
+                                kontaktRepository.save(new Kontakt(account, "1232131" + username+" "+RandomStringGenerator.getInstance().getString(5), "email@gmail"));
+                                kontaktRepository.save(new Kontakt(account, "123123123432" + username+" "+RandomStringGenerator.getInstance().getString(5), "email2@interia"));
                             });
     }
 }
