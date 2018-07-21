@@ -1,7 +1,6 @@
 package com.example.zadaniePraca;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
-import sun.rmi.runtime.Log;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
